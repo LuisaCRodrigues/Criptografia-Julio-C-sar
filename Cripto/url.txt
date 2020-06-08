@@ -1,0 +1,2 @@
+get: https://api.codenation.dev/v1/challenge/dev-ps/generate-data?token=024ac4f0e46eb73234566f4ef86a9008ae6303d6
+post: https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token=024ac4f0e46eb73234566f4ef86a9008ae6303d6

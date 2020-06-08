@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Criptografia</title>
+</head>
+
+<body>
+
+    <input type="text" id="url" style="width:300px;">
+    <button onclick="fazerRequisicaoGet();">Fazer requisição Get</button>
+    <hr />
+    <div id="resposta"></div>
+    <hr />
+    <input type="text" id="url" style="width:300px;">
+    <button onclick="fazerRequisicaoPost();">Fazer requisicao Post</button>
+    
+    
+    <script >    
+        var answer
+        
+        function fazerRequisicaoGet() {
+
+            var url = document.getElementById('url').value;
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", url, false);
+
+            xhttp.send();
+            answer = JSON.parse(xhttp.responseText);
+            console.log(answer.cifrado)
+            console.log(answer.numero_casas)
+            answer.decifrado = descriptar(answer.cifrado, answer.numero_casas)
+            console.log(answer.decifrado)
+            answer.resumo_criptografico = crip(answer.decifrado)
+            console.log(aswer.resumo_criptografico)
+
+            document.getElementById("resposta").innerHTML = xhttp.responseText;
+            JSON.stringify(answer)
+            console.log(answer)
+        }
+
+        function fazerRequisicaoPost() {
+            var url = document.getElementById('url').value;
+
+            var ajax = new XMLHttpRequest();
+            ajax.open("POST", url, true);
+
+            ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            ajax.send(answer);
+
+            ajax.onreadystatechange = function () {
+
+                // Caso o state seja 4 e o http.status for 200, é porque a requisiçõe deu certo.
+                if (ajax.readyState == 4 && ajax.status == 200) {
+
+                    var data = ajax.responseText;
+
+                    // Retorno do Ajax
+                    console.log(data);
+                }
+            }
+        }
+
+        function descriptar(texto, chave) {
+            var msgCripto = new Array();
+            var alfabeto = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+            var texto = texto.toLowerCase();
+
+            for (i = 0; i < texto.length; i++) {
+                atual = texto.charAt(i);
+
+                if (alfabeto.includes(atual)) {
+                    indice = alfabeto.indexOf(atual) - chave;
+
+                    if (indice >= 0) {
+                        msgCripto.push(alfabeto[indice]);
+                    } else {
+                        msgCripto.push(alfabeto[indice + 26]);
+                    }
+                }
+                else {
+                    msgCripto.push(atual);
+                }
+            }
+            decif = msgCripto.join('');
+            return decif
+        }
+        function crip(msg){
+            sha1('Message to hash');
+            var hash = sha1.create();
+            hash.update('Message to hash');
+            hash.hex();
+                
+           
+            
+
+        }
+
+    </script>
+</body>
+
+</html>
